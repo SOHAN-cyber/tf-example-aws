@@ -1,6 +1,5 @@
 output "public_ip" {
-  value = aws_instance.my-instance.*.public_ip
-  sensitive = true
+  value     = aws_instance.my-instance.*.public_ip
 }
 
 output "sg_id" {

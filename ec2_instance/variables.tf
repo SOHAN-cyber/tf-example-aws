@@ -9,3 +9,9 @@ variable "region" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "username" {
+  description = "Provide the username as per AMI ID"
+  type        = string
+  default     = "ubuntu"
+}

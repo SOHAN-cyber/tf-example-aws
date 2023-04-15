@@ -1,12 +1,34 @@
 resource "aws_instance" "my-instance" {
-  count = 3
+  count                       = 1
   ami                         = "ami-007855ac798b5175e"
   instance_type               = "t2.micro"
   associate_public_ip_address = true
   key_name                    = aws_key_pair.my-instance.key_name
   vpc_security_group_ids      = [aws_security_group.my-instance-sg.id]
+
+  provisioner "file" {
+    source      = "../index.html"
+    destination = "/tmp/index.html"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt update",
+      "sudo apt install nginx -y",
+      "sudo cp -rf /tmp/index.html /var/www/html/index.html",
+      "sudo systemctl enable --now nginx",
+    ]
+}
+
+  connection {
+    type        = "ssh"
+    user        = var.username
+    private_key = file("${path.module}/../keys/my-instance")
+    host        = self.public_ip
+  }
+
   lifecycle {
-   create_before_destroy = true
+    create_before_destroy = true
   }
   tags = {
     Environment = "dev"
@@ -29,7 +51,7 @@ resource "aws_security_group" "my-instance-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["203.192.214.113/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
