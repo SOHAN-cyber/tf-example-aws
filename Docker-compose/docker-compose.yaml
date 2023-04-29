@@ -1,0 +1,32 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    env_file:
+      - .env
+    networks:
+      - custom_bridge_nw
+    container_name: mysql_container
+  web:
+    build: .
+    depends_on:
+      - mysql
+    ports:
+      - 83:80
+      - 84:80
+    volumes:
+      - log_volume:/var/log/nginx
+    networks:
+      - custom_bridge_nw
+    container_name: nginx_container
+    environment:
+      Name: 'nginx'
+    labels:
+      - com.host.description='This is Nginx Custom Container'
+volumes:
+  log_volume: {}
+networks:
+  custom_bridge_nw:
+    driver: bridge
