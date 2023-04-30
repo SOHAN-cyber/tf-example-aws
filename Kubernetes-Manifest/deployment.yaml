@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-first-deployment
+  namespace: dev
+  labels:
+    app: dep
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dep
+  template:
+    metadata:
+      name: dep-1
+      labels:
+        app: dep
+    spec:
+      containers:
+      - name: dep
+        image: dogra21703/ninja20:latest
+        ports:
+        - containerPort: 80
