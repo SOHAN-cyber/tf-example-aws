@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: Deloyment-traffic-routing
+spec:
+  rules:
+  - host: "deployment-1.example.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service-1
+            port:
+              number: 80
+  - host: "deployment-2.example.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service-2
+            port:
+              number: 80

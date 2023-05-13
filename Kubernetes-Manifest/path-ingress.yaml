@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: Deloyment-traffic-routing
+spec:
+  rules:
+  - host: deployment.example.com
+    http:
+      paths:
+      - path: /svc1
+        pathType: Prefix
+        backend:
+          service:
+            name: service-1
+            port:
+              number: 4200
+      - path: /svc2
+        pathType: Prefix
+        backend:
+          service:
+            name: service-2
+            port:
+              number: 8080

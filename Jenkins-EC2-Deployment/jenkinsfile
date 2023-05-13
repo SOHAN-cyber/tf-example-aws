@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+tools {
+  maven 'MAVEN-3.9'
+}
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/SOHAN-cyber/java-repo.git'
+            }
+        }
+        stage ('Building Docker Image') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage ('Deploy to EC2') {
+            steps {
+               sh 'ansible-playbook -i hosts ec-deployment.yaml'
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

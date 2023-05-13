@@ -1,2 +1,15 @@
 keys
 .terraform*
+export AKIAW6NZTFXPQ76P5EOA
+   
+export AWS_ACCESS_KEY_ID=AKIAW6NZTFXPQ76P5EOA
+export AWS_SECRET_ACCESS_KEY=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 
+export AWS_DEFAULT_REGION=us-east-1
+
+
+https://bhargavamin.com/how-to-do/setting-up-java-environment-variable-on-ec2/   --to set the java -version
+https://linuxhint.com/installation-of-tomcat-ec2-amazon-linux/   --tomcat installation
+launch-wizard-9
+
+http://54.209.24.196:8080/github-webhook/
+

@@ -9,10 +9,7 @@ metadata:
     kubernetes.io/change-cause: "Switching my custom nginx image"
 spec:
   strategy:
-    rollingUpdate:
-      maxSurge: 3
-      maxUnavailable: 1
-    type: RollingUpdate
+    type: Recreate 
   replicas: 3
   selector:
     matchLabels:
